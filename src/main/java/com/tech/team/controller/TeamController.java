@@ -1,10 +1,17 @@
 package com.tech.team.controller;
 
+import java.net.URI;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.tech.team.model.Team;
 import com.tech.team.repository.TeamRepository;
@@ -14,6 +21,9 @@ public class TeamController {
 
 	@Autowired
 	TeamRepository teamRepository;
+
+	@Autowired
+	DiscoveryClient discoveryClient;
 
 	@Value("${lucky-word}")
 	String luckyWord;
@@ -31,5 +41,21 @@ public class TeamController {
 	@GetMapping("/teams/{id}")
 	public Team getTeam(@PathVariable Long id) {
 		return teamRepository.findOne(id);
+	}
+
+	@GetMapping("/members")
+	public @ResponseBody String getSentence() {
+		return getMembers("Member");
+	}
+
+	public String getMembers(String service) {
+		List<ServiceInstance> list = discoveryClient.getInstances(service);
+		if (list != null && list.size() > 0) {
+			URI uri = list.get(0).getUri();
+			if (uri != null) {
+				return (new RestTemplate()).getForObject(uri, String.class);
+			}
+		}
+		return null;
 	}
 }
