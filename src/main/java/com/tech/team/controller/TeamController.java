@@ -1,11 +1,7 @@
 package com.tech.team.controller;
 
-import java.net.URI;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.tech.team.model.Team;
 import com.tech.team.repository.TeamRepository;
+import com.tech.team.service.MemberService;
 
 @RestController
 public class TeamController {
@@ -24,12 +21,15 @@ public class TeamController {
 
 	@Autowired
 	DiscoveryClient discoveryClient;
-	
+
 	@Autowired
 	RestTemplate restTemplate;
 
 	@Value("${lucky-word}")
 	String luckyWord;
+
+	@Autowired
+	MemberService memberService;
 
 	@GetMapping("/lucky-word")
 	public String showLuckyWord() {
@@ -48,11 +48,7 @@ public class TeamController {
 
 	@GetMapping("/members")
 	public @ResponseBody String getSentence() {
-		return getMembers("Member");
+		return "<h3>Some Members</h3><br/>" + memberService.buildSentence() + "<br/><br/>";
 	}
 
-	public String getMembers(String service) {
-		List<ServiceInstance> list = discoveryClient.getInstances(service);
-		return restTemplate.getForObject("http://" + service, String.class);
-	}
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +24,7 @@ import com.tech.team.repository.TeamRepository;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class TeamCommunityApplication extends SpringBootServletInitializer {
 
 	private static Class<TeamCommunityApplication> applicationClass = TeamCommunityApplication.class;
