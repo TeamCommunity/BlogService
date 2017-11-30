@@ -24,6 +24,9 @@ public class TeamController {
 
 	@Autowired
 	DiscoveryClient discoveryClient;
+	
+	@Autowired
+	RestTemplate restTemplate;
 
 	@Value("${lucky-word}")
 	String luckyWord;
@@ -50,12 +53,6 @@ public class TeamController {
 
 	public String getMembers(String service) {
 		List<ServiceInstance> list = discoveryClient.getInstances(service);
-		if (list != null && list.size() > 0) {
-			URI uri = list.get(0).getUri();
-			if (uri != null) {
-				return (new RestTemplate()).getForObject(uri, String.class);
-			}
-		}
-		return null;
+		return restTemplate.getForObject("http://" + service, String.class);
 	}
 }
