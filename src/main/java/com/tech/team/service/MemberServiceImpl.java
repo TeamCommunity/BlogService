@@ -3,6 +3,7 @@ package com.tech.team.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.tech.team.model.MemberClient;
 
 /**
@@ -18,6 +19,8 @@ public class MemberServiceImpl implements MemberService {
 	/**
 	 * Assemble a sentence by gathering random words of each part of speech:
 	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "getFallbackMember")
 	public String buildSentence() {
 		String sentence = "There was a problem assembling the sentence!";
 		sentence = String.format("%s", memberClient.getWord().getString());
@@ -29,4 +32,7 @@ public class MemberServiceImpl implements MemberService {
 		this.memberClient = memberClient;
 	}
 
+	public String getFallbackMember() {
+		return "Fallback-Someone";
+	}
 }
