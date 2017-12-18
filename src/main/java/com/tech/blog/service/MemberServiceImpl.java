@@ -1,10 +1,10 @@
-package com.tech.team.service;
+package com.tech.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.tech.team.model.MemberClient;
+import com.tech.blog.model.MemberClient;
 
 /**
  * Build a sentence by assembling randomly generated subjects, verbs, articles,

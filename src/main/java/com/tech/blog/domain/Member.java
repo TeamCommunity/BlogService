@@ -1,4 +1,4 @@
-package com.tech.team.domain;
+package com.tech.blog.domain;
 
 public class Member {
 

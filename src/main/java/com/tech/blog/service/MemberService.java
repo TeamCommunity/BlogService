@@ -1,4 +1,4 @@
-package com.tech.team.service;
+package com.tech.blog.service;
 
 /**
  * Describes a demo.service that will build a sentence, somehow, some way.

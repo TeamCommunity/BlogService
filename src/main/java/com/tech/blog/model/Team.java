@@ -1,4 +1,4 @@
-package com.tech.team.model;
+package com.tech.blog.model;
 
 import java.util.Set;
 

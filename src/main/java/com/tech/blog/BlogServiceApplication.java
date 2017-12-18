@@ -1,4 +1,4 @@
-package com.tech.team;
+package com.tech.blog;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,18 +20,18 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import com.tech.team.model.Player;
-import com.tech.team.model.Team;
-import com.tech.team.repository.TeamRepository;
+import com.tech.blog.model.Player;
+import com.tech.blog.model.Team;
+import com.tech.blog.repository.TeamRepository;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableHystrix
 @EnableHystrixDashboard
-public class TeamCommunityApplication extends SpringBootServletInitializer {
+public class BlogServiceApplication extends SpringBootServletInitializer {
 
-	private static Class<TeamCommunityApplication> applicationClass = TeamCommunityApplication.class;
+	private static Class<BlogServiceApplication> applicationClass = BlogServiceApplication.class;
 
 	public static void main(String[] args) {
 		SpringApplication.run(applicationClass, args);

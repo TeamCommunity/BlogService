@@ -1,4 +1,4 @@
-package com.tech.team.controller;
+package com.tech.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.tech.team.model.Team;
-import com.tech.team.repository.TeamRepository;
-import com.tech.team.service.MemberService;
+import com.tech.blog.domain.Member;
+import com.tech.blog.model.Team;
+import com.tech.blog.repository.TeamRepository;
+import com.tech.blog.service.MemberService;
 
 @RestController
 public class TeamController {
@@ -49,6 +50,11 @@ public class TeamController {
 	@GetMapping("/members")
 	public @ResponseBody String getSentence() {
 		return "<h3>Some Members</h3><br/>" + memberService.buildSentence() + "<br/><br/>";
+	}
+
+	@GetMapping("/")
+	public @ResponseBody Member getBlogService() {
+		return new Member("Taketo Matsunaga from microservice!");
 	}
 
 }
